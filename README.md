@@ -10,3 +10,6 @@ This repository contains my solutions for the **C++ programming assignments** fr
 
 ## 📁 Repository Structure
 Each directory contains the source code (`.cpp`) for the solved problems, keeping the repository clean of compiled binary files.
+
+## ❌ Program Issues or Spelling Errors
+If you find any issue or spelling error in the code, please open a pull request or send me a message.
