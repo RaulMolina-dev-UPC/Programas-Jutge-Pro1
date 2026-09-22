@@ -1,55 +1,43 @@
 #include <iostream>
+#include <string>
 
-int main(){
-    int x, y, z, higher, mid, low; // Startup variables
-    std::string letters;
-    std::cin >> x >> y >> z;
-    std::cin >> letters;
+// Programa introductorio para ordenar tres enteros e imprimirlos según un patrón
+// Utiliza únicamente variables individuales, condicionales básicos y un bucle
+int main() {
+    // Configuración para optimizar la velocidad de entrada y salida
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
 
-      if (x > y && y > z) { // Here we see which number is higher, middle, or lower, and save it in a variable to print the number as the client wants.
-          higher = x; 
-        mid = y; 
-        low = z;
-     } else if (x < y && y < z) {
-          higher = z; 
-        mid = y; 
-        low = x;
-     } else if (x > y && y < z && z < x) {
-    higher = x;
-       mid = z;
-       low = y; 
-     } else if (x < y && y > z && x < z) {
-         higher = y;
-         mid = z;
-         low = x;
-     } else if (x < y && y > z && x > z) {
-         higher = y;
-         mid = x;
-         low = z;
-     } else if (x > y && y < z && x < z) {
-         higher = z;
-         mid = x;
-         low = y;
+    // Variables individuales para los tres números
+    int a, b, c;
+    std::cin >> a >> b >> c;
+
+    // Cadena con el orden deseado (ejemplo: "ABC", "CBA", etc.)
+    std::string order;
+    std::cin >> order;
+
+    // Ordenamiento en 3 pasos simples para garantizan que: a <= b <= c
+    // Al finalizar: 'A' es a, 'B' es b, 'C' es c
+    if (a > b) { int temp = a; a = b; b = temp; }
+    if (b > c) { int temp = b; b = c; c = temp; }
+    if (a > b) { int temp = a; a = b; b = temp; }
+
+    // Impresión de cada valor según el carácter leído en la cadena
+    for (int i = 0; i < 3; i++) {
+        if (order[i] == 'A') {
+            std::cout << a;
+        } else if (order[i] == 'B') {
+            std::cout << b;
+        } else {
+            std::cout << c;
+        }
+
+        // Espaciado entre números
+        if (i < 2) {
+            std::cout << " ";
+        }
     }
-    
+    std::cout << "\n";
 
-    if( letters == "ABC" ){
-        std::cout << low << " " << mid << " " << higher << std::endl;
-    }
-    else if ( letters == "CBA"  ){
-        std::cout << higher << " " << mid << " " << low << std::endl;
-    } 
-    else if ( letters == "CAB"  ){
-        std::cout << higher << " " << low << " " << mid << std::endl;
-    } 
-    else if ( letters == "BCA"  ){
-        std::cout << mid << " " << higher << " " << low << std::endl;
-    } 
-    else if ( letters == "ACB"  ){
-        std::cout << low << " " << higher << " " << mid << std::endl;
-    } 
-    else{
-        std::cout << mid << " " << low << " " << higher << std::endl; // The rest will be (letters == "BAC")
-
-    } 
+    return 0;
 }
