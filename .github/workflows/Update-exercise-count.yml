@@ -1,0 +1,42 @@
+name: Update Exercise Count
+
+on:
+  push:
+    paths:
+      - '**/*.cpp'
+
+jobs:
+  update-count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check for new C++ files
+        id: check_new
+        run: |
+          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD~1 HEAD | grep '\.cpp$' || true)
+          if [ -n "$NEW_FILES" ]; then
+            echo "has_new=true" >> $GITHUB_OUTPUT
+            echo "New C++ files detected."
+          else
+            echo "has_new=false" >> $GITHUB_OUTPUT
+            echo "No new C++ files added."
+          fi
+
+      - name: Count exercises and update README
+        if: steps.check_new.outputs.has_new == 'true'
+        id: counter
+        run: |
+          COUNT=$(find . -type f -name "*.cpp" | wc -l)
+          echo "total=$COUNT" >> $GITHUB_OUTPUT
+          sed -i -E "s/(<!-- COUNT -->)[0-9]+(<!-- \/COUNT -->)/\1$COUNT\2/" README.md
+
+      - name: Commit and push changes
+        if: steps.check_new.outputs.has_new == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update exercise count to ${{ steps.counter.outputs.total }}"
+          file_pattern: 'README.md'
