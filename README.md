@@ -8,7 +8,7 @@ This repository contains my solutions for the C++ programming assignments from t
 - Academic Year: 2026-2027 (Q1)
 - Language: C++
 - Platform: Jutge.org
-- Solved Exercises: <!-- COUNT -->47<!-- /COUNT -->
+- Solved Exercises: <!-- COUNT -->52<!-- /COUNT -->
 
 📁 Repository Structure
 
